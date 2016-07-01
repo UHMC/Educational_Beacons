@@ -1,7 +1,9 @@
 package edu.hawaii.maui.index.educationalbeacons;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -9,5 +11,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void launchURL (View v){
+        Intent activity = null;
+        activity = new Intent(this, EddystoneURL.class);
+        try {
+            startActivity(activity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void launchEID (View v){
+        Intent activity = null;
+        activity = new Intent(this,EddystoneEID.class);
+        try {
+            startActivity(activity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
