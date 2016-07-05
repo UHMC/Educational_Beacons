@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setup(View v) {
         Intent activity = null;
-        activity = new Intent(this,SetupActivity.class);
+        activity = new Intent(this,MonitoringActivity.class);
         try {
             startActivity(activity);
         } catch (Exception e){
