@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:text="Cafeteria menu using Eddystone-URL"
         android:id="@+id/textView"
+        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp" />
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
     <Button
         android:layout_width="wrap_content"
@@ -48,4 +49,24 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:onClick="launchEID"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit the settings"
+        android:id="@+id/textView3"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Let's see it!"
+        android:id="@+id/button3"
+        android:textAllCaps="false"
+        android:onClick="setup"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 </RelativeLayout>
