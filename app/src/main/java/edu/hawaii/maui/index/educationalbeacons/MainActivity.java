@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setup(View v) {
+    public void monitor(View v) {
         Intent activity = null;
         activity = new Intent(this,MonitoringActivity.class);
         try {
@@ -45,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
 
+    public void setup(View v){
+        Intent activity = null;
+        activity = new Intent(this,SetupActivity.class);
+        try {
+            startActivity(activity);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
