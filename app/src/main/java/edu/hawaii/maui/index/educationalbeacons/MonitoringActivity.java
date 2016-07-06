@@ -1,9 +1,12 @@
 package edu.hawaii.maui.index.educationalbeacons;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import org.altbeacon.beacon.BeaconManager;
@@ -40,14 +43,40 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
     @Override
     public void didEnterRegion(Region arg0) {
         Log.d(TAG, "Got a didEnterRegion call");
-        // This call to disable will make it so the activity below only gets launched the first time a beacon is seen (until the next time the app is launched)
-        // if you want the Activity to launch every single time beacons come into view, remove this call.
-        regionBootstrap.disable();
-        Intent intent = new Intent(this, EddystoneURL.class);
-        // IMPORTANT: in the AndroidManifest.xml definition of this activity, you must set android:launchMode="singleInstance" or you will get two instances
-        // created when a user launches the activity manually and it gets launched from here.
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(intent);
+//        // This call to disable will make it so the activity below only gets launched the first time a beacon is seen (until the next time the app is launched)
+//        // if you want the Activity to launch every single time beacons come into view, remove this call.
+//        regionBootstrap.disable();
+//        Intent intent = new Intent(this, NotifyActivity.class);
+//        // IMPORTANT: in the AndroidManifest.xml definition of this activity, you must set android:launchMode="singleInstance" or you will get two instances
+//        // created when a user launches the activity manually and it gets launched from here.
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        this.startActivity(intent);
+        Intent resultIntent = new Intent(this, EddystoneURL.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                        .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+                        .setContentTitle("You're near the cafeteria!")
+                        .setContentText("Check out what's cookin'")
+                        .setContentIntent(resultPendingIntent);;
+
+// Because clicking the notification opens a new ("special") activity, there's
+// no need to create an artificial back stack.
+
+// Sets an ID for the notification
+        int mNotificationId = 001;
+// Gets an instance of the NotificationManager service
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+// Builds the notification and issues it.
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
     }
 
     @Override
