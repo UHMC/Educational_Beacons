@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class MainActivity extends AppCompatActivity {
+    private boolean DEBUG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
