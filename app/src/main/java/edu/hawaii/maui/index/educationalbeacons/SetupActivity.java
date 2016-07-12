@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 
 public class SetupActivity extends AppCompatActivity {
 
@@ -17,14 +20,13 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
         // This block creates a file to keep track of the website.
-        FileWriter fw;
         File file = new File(getFilesDir().getPath().toString() + "/website.txt");
         try {
-            file.createNewFile();
-            fw = new FileWriter(file, true);
-            fw.write("http://yourschool.com");
-            fw.flush();
-            fw.close();
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
+            TextView currentSite = (TextView) findViewById(R.id.currentWebsite);
+            currentSite.setText("Current website: \n" + bfr.readLine());
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,10 +43,19 @@ public class SetupActivity extends AppCompatActivity {
         File file = new File(getFilesDir().getPath().toString() + "/website.txt");
         // Write website to file
         try {
+            // Delete the file first.
+            file.delete();
+            // Set up I/O and write the info from EditText into the file
             fw = new FileWriter(file,true);
             fw.write(website.getText().toString());
             fw.flush();
             fw.close();
+            // Update current website
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
+            TextView currentSite = (TextView) findViewById(R.id.currentWebsite);
+            currentSite.setText("Current website: " + bfr.readLine());
+
 
 
         } catch(Exception e){
