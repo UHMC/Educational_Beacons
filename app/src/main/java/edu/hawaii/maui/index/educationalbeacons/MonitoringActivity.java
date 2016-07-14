@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
@@ -31,9 +32,11 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
         //        setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
         // wake up the app when any beacon is seen (you can specify specific id filers in the parameters below)
+        Toast.makeText(this,"Monitoring started!",Toast.LENGTH_SHORT).show();
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(new BeaconParser().EDDYSTONE_URL_LAYOUT));
         Region region = new Region("bootstrapRegion", null, null, null);
         regionBootstrap = new RegionBootstrap(this, region);
+        finish();
     }
 
     @Override
@@ -72,7 +75,7 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
                         .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
                         .setContentTitle("You're near the cafeteria!")
                         .setContentText("Check out what's cookin'")
-                        .setContentIntent(resultPendingIntent);;
+                        .setContentIntent(resultPendingIntent);
 
 // Because clicking the notification opens a new ("special") activity, there's
 // no need to create an artificial back stack.
