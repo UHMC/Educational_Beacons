@@ -18,12 +18,13 @@ import org.altbeacon.beacon.startup.RegionBootstrap;
 public class MonitoringActivity extends AppCompatActivity implements BootstrapNotifier {
     private static final String TAG = "Monitoring";
     private RegionBootstrap regionBootstrap;
+    private BeaconManager beaconManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "App started up");
-        BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
+        beaconManager = BeaconManager.getInstanceForApplication(this);
         // To detect proprietary beacons, you must add a line like below corresponding to your beacon
         // type.  Do a web search for "setBeaconLayout" to get the proper expression.
         // beaconManager.getBeaconParsers().add(new BeaconParser().
@@ -31,7 +32,7 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
 
         // wake up the app when any beacon is seen (you can specify specific id filers in the parameters below)
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(new BeaconParser().EDDYSTONE_URL_LAYOUT));
-        Region region = new Region("edu.hawaii.maui.index.educationalbeacons.boostrapRegion", null, null, null);
+        Region region = new Region("bootstrapRegion", null, null, null);
         regionBootstrap = new RegionBootstrap(this, region);
     }
 
@@ -42,6 +43,13 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
 
     @Override
     public void didEnterRegion(Region arg0) {
+        try {
+            beaconManager.startMonitoringBeaconsInRegion(arg0);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
         Log.d(TAG, "Got a didEnterRegion call");
 //        // This call to disable will make it so the activity below only gets launched the first time a beacon is seen (until the next time the app is launched)
 //        // if you want the Activity to launch every single time beacons come into view, remove this call.
