@@ -13,6 +13,7 @@ import java.io.FileWriter;
 public class MainActivity extends AppCompatActivity {
     private boolean DEBUG = false;
     private static final int REQUEST_ENABLE_BT = 1;
+    public static final String START_MONITORING = "edu.hawaii.maui.index.educationalbeacons.START_MONITORING";
 
 
     @Override
@@ -24,13 +25,10 @@ public class MainActivity extends AppCompatActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-        Intent activity = null;
-        activity = new Intent(this,MonitoringActivity.class);
-        try {
-            startActivity(activity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Intent intent = new Intent();
+        intent.setAction(START_MONITORING);
+        sendBroadcast(intent);
+
     }
 
     @Override
@@ -63,13 +61,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void monitor(View v) {
-        Intent activity = null;
-        activity = new Intent(this,MonitoringActivity.class);
-        try {
-            startActivity(activity);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Intent intent = new Intent();
+        intent.setAction(START_MONITORING);
+        sendBroadcast(intent);
 
     }
 

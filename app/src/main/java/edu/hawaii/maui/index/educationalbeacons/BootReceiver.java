@@ -90,7 +90,7 @@ public class BootReceiver extends BroadcastReceiver implements BootstrapNotifier
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         //throw new UnsupportedOperationException("Not yet implemented");
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) || intent.getAction().equals(MainActivity.START_MONITORING)) {
             mContext = context;
             Log.d(TAG, "App started up");
             beaconManager = BeaconManager.getInstanceForApplication(mContext);
