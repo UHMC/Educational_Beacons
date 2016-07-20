@@ -14,7 +14,7 @@ public class BootReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         //throw new UnsupportedOperationException("Not yet implemented");
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
-
+            context.startActivity(new Intent(context,MonitoringActivity.class));
         }
     }
 }
