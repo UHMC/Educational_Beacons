@@ -31,20 +31,35 @@
           <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>In the ever increasing fields of technology, new phenomena are always popping up. For the average person, contextual technology is becoming more and more prevalent. Today's social media applications may ask people to make a post in the event of a disaster so their family knows they're ok, and when there's no disaster, a suggestion to post a simple "I'm at the coffee shop!"</p>
+<p>In the ever increasing field of technology, new advancements are bound to occur. For the average person, contextual technology is becoming more and more impactful in their lives. Whether it's social media applications asking them to make a post in the event of a disaster so that their family knows they're okay or a simple post saying "I'm at the coffee shop!"</p>
 
 <h3>
 <a id="our-application" class="anchor" href="#our-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Our application</h3>
 
-<p>We have developed a solution that enables any university to reliably relay context-dependent information to their students through an application using the recently developed beacon technologies. This makes relevant information readily available at just a tap away.</p>
+<p>We have developed a solution that enables any university to reliably relay information to their students through an application. Once it detects a beacon, it will notify the user. The information will be a tap away.</p>
+
+<p>The application can be configured with a school's website. Information on the website needs to be maintained in order for the app to stay relevant. This can be done through any web service. An example can be seen below:
+<img src="http://i.imgur.com/wvWnMGm.png" alt="A wordpress website"></p>
 
 <h3>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h3>
+<a id="proposed-features" class="anchor" href="#proposed-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Proposed features</h3>
 
 <ul>
-<li>Eddystone-URL support</li>
-<li>Eddystone-EID support</li>
-<li>Configurable, just declare what URL the application should look for</li>
+<li>Eddystone-URL support (insecure)</li>
+<li><p>Configurable; just declare what URL the application should look after</p></li>
+<li><p>Eddystone-EID support (secure)</p></li>
+<li>Using Eddystone-EID, information can be catered to students based on location, adding a second layer of defense where physical location is necessary. </li>
+</ul>
+
+<h3>
+<a id="development-status" class="anchor" href="#development-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development status</h3>
+
+<ul>
+<li>Eddystone-URL: Application can be configured with a URL distributed by a beacon, which will notify the user that they are near it with a notification.
+<img src="http://i.imgur.com/CWsdZxv.png" alt="Configuration page">
+<img src="http://i.imgur.com/lWAqQXC.png" alt="Notification bar">
+</li>
+<li>Eddystone-EID: No available hardware, simulated beacons are not working using the Android Beacon Library. MySQL cannot be used without extra backend web development. Google Endpoints might work instead. There is a lack of support as it is a very recent development.</li>
 </ul>
 
 <h3>
