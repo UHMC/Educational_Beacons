@@ -57,7 +57,7 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
             BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
             String url = bfr.readLine();
             byte[] urlBytes = UrlBeaconUrlCompressor.compress(url);
-            Identifier websight = Identifier.fromBytes(urlBytes,0,urlBytes.length,false);
+            websight = Identifier.fromBytes(urlBytes,0,urlBytes.length,false);
             Log.d(TAG, "Uncompressed Beacon URL: " + UrlBeaconUrlCompressor.uncompress(urlBytes));
         }catch (Exception e){
             e.printStackTrace();
