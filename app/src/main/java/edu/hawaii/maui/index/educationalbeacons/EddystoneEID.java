@@ -5,6 +5,7 @@ import android.bluetooth.le.AdvertiseSettings;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
@@ -21,12 +22,15 @@ import java.util.Collection;
 
 public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final String TAG="EddystoneEID";
+    private static final String DEBUG_TAG="EddystoneEID_Debug";
+    private static final boolean DEBUG=true;
     private BeaconManager mBeaconManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eddystone_eid);
+        if(DEBUG)Log.d(DEBUG_TAG,"onCreate");
     }
 
     @Override
@@ -37,6 +41,7 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout(BeaconParser.EDDYSTONE_EID_LAYOUT)); // "s:0-1=feaa,m:2-2=30,p:3-3:-41,i:4-11"
         mBeaconManager.bind(this);
+        if(DEBUG)Log.d(DEBUG_TAG,"onResume");
     }
 
     public void onBeaconServiceConnect() {
@@ -45,18 +50,24 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
             mBeaconManager.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
+            if(DEBUG)Log.d(DEBUG_TAG,"Error");
         }
         mBeaconManager.setRangeNotifier(this);
+        if(DEBUG)Log.d(DEBUG_TAG,"onBeaconServiceConnect");
     }
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+        if(DEBUG)Log.d(DEBUG_TAG,"didRangeBeaconsInRegion");
         for (Beacon beacon : beacons) {
+            if(DEBUG)Log.d(DEBUG_TAG,"Another beacon");
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x30) {
+                if(DEBUG)Log.d(DEBUG_TAG,"Matches EID type");
                 // This is a Eddystone-EID frame
                 Identifier ephemeralId = beacon.getId1();
                 Log.d(TAG, "I see a beacon transmitting ephemeral id: " + ephemeralId +
                         " approximately " + beacon.getDistance() + " meters away.");
+                if(DEBUG)Log.d(DEBUG_TAG,"Logged some range info");
             }
         }
     }
@@ -65,9 +76,11 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
+        if(DEBUG)Log.d(DEBUG_TAG,"onPause");
     }
 
     public void advertise(View view){
+        if(DEBUG)Log.d(DEBUG_TAG,"Advertise");
         Beacon beacon = new Beacon.Builder()
                 .setId1("0x0001020304050607") // Ephemeral Identifier
                 .setManufacturer(0x0118) // Radius Networks or any 2-byte Bluetooth SIG company code
@@ -88,6 +101,6 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
                 Log.i(TAG, "Advertisement start succeeded.");
             }
         });
-
+        if(DEBUG)Log.d(DEBUG_TAG,"Exiting advertise");
     }
 }
