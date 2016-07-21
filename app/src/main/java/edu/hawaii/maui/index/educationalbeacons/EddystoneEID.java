@@ -1,14 +1,18 @@
 package edu.hawaii.maui.index.educationalbeacons;
 
+import android.bluetooth.le.AdvertiseCallback;
+import android.bluetooth.le.AdvertiseSettings;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.BeaconTransmitter;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
@@ -61,5 +65,29 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
     public void onPause() {
         super.onPause();
         mBeaconManager.unbind(this);
+    }
+
+    public void advertise(View view){
+        Beacon beacon = new Beacon.Builder()
+                .setId1("0x0001020304050607") // Ephemeral Identifier
+                .setManufacturer(0x0118) // Radius Networks or any 2-byte Bluetooth SIG company code
+                .setTxPower(-59)
+                .build();
+        BeaconParser beaconParser = new BeaconParser()
+                .setBeaconLayout(BeaconParser.EDDYSTONE_EID_LAYOUT);
+        BeaconTransmitter beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+        beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
+
+            @Override
+            public void onStartFailure(int errorCode) {
+                Log.e(TAG, "Advertisement start failed with code: "+errorCode);
+            }
+
+            @Override
+            public void onStartSuccess(AdvertiseSettings settingsInEffect) {
+                Log.i(TAG, "Advertisement start succeeded.");
+            }
+        });
+
     }
 }
