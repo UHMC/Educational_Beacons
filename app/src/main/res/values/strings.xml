@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Educational Beacons</string>
+    <string name="button_launch_bleds">Direct Scan</string>
 </resources>

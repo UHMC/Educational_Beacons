@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void launchBLEDS(View v){
+        try{
+            startActivity(new Intent(this,BLEDirectScan.class));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void monitor(View v) {
         Intent activity = null;
         activity = new Intent(this,MonitoringActivity.class);
