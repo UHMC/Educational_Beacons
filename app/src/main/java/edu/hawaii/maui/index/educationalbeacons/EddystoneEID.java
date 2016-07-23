@@ -17,6 +17,7 @@ import org.altbeacon.beacon.BeaconTransmitter;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.utils.eddystoneeid.EidResolver;
 
 import java.util.Collection;
 
@@ -25,12 +26,17 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
     private static final String DEBUG_TAG="EddystoneEID_Debug";
     private static final boolean DEBUG=true;
     private BeaconManager mBeaconManager;
+    private static final String GOOGLE_API_KEY = "AIzaSyDPC7KjBKOUlbrEFvptg3qtYBk3_CJgULU";
+    private static final String RESOLUTION_NAMESPACED_TYPE="eddystoneeid-1342";
+    private EidResolver resolver = EidResolver.getInstanceWithGoogleApiKey(GOOGLE_API_KEY,RESOLUTION_NAMESPACED_TYPE);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eddystone_eid);
         if(DEBUG)Log.d(DEBUG_TAG,"onCreate");
+
     }
 
     @Override
@@ -67,6 +73,7 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
                 Identifier ephemeralId = beacon.getId1();
                 Log.d(TAG, "I see a beacon transmitting ephemeral id: " + ephemeralId +
                         " approximately " + beacon.getDistance() + " meters away.");
+                Log.d(DEBUG_TAG,"Resolved identifier for: " + beacon.getId1()+ " is " + resolver.getResolvedIdentifierString(beacon.getId1()));
                 if(DEBUG)Log.d(DEBUG_TAG,"Logged some range info");
             }
         }
