@@ -15,7 +15,6 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.eddystoneeid.EidResolver;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
 public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
