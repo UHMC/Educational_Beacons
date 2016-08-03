@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void launchEIDTestDemo(View v){startActivity(new Intent(this,LoginActivity.class));}
+
     public void monitor(View v) {
         Intent activity = null;
         activity = new Intent(this,MonitoringActivity.class);
