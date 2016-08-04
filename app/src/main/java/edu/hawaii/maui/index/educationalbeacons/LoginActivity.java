@@ -3,6 +3,8 @@ package edu.hawaii.maui.index.educationalbeacons;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -62,12 +64,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private AutoCompleteTextView mEmailView;
     private View mProgressView;
     private View mLoginFormView;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupActionBar();
+        mContext = getApplicationContext();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mEmailView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -293,9 +297,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
+        public final static String EXTRA_MESSAGE = "edu.hawaii.maui.index.educationalbeacons.MESSAGE";
         private final String mEmail;
-
         UserLoginTask(String email) {
             mEmail = email;
         }
@@ -329,7 +332,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                Intent intent = new Intent(mContext, EddystoneEID.class);
+                String message = mEmail;
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
             }
         }
 
