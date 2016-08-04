@@ -70,6 +70,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setupActionBar();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                attemptLogin();
+                return true;
+            }
+        });
         populateAutoComplete();
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
