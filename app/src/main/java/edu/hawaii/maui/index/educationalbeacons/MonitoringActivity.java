@@ -4,6 +4,8 @@ package edu.hawaii.maui.index.educationalbeacons;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,7 @@ import java.io.InputStreamReader;
 
 public class MonitoringActivity extends AppCompatActivity implements BootstrapNotifier {
     private static final String TAG = "Monitoring";
-    private static final int LOCATION_PERMISSIONS_REQUEST_CODE=2;
+    private static final int LOCATION_PERMISSIONS_REQUEST_CODE = 2;
     private RegionBootstrap regionBootstrap;
     private BeaconManager beaconManager;
     private Identifier websight;
@@ -37,49 +39,56 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "App started up");
-        requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSIONS_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSIONS_REQUEST_CODE);
+        else startMonitoring();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==LOCATION_PERMISSIONS_REQUEST_CODE){
-            int allGood=0;
-            for(int result : grantResults)allGood+=result;
-            if(allGood>0){
-                beaconManager = BeaconManager.getInstanceForApplication(this);
-
-
-                // To detect proprietary beacons, you must add a line like below corresponding to your beacon
-                // type.  Do a web search for "setBeaconLayout" to get the proper expression.
-                // beaconManager.getBeaconParsers().add(new BeaconParser().
-                //        setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-                // wake up the app when any beacon is seen (you can specify specific id filers in the parameters below)
-
-                try {
-                    File file = new File(getFilesDir().getPath().toString() + "/website.txt");
-                    FileInputStream fis = new FileInputStream(file);
-                    BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
-                    String url = bfr.readLine();
-                    byte[] urlBytes = UrlBeaconUrlCompressor.compress(url);
-                    websight = Identifier.fromBytes(urlBytes,0,urlBytes.length,false);
-                    Log.d(TAG, "Uncompressed Beacon URL: " + UrlBeaconUrlCompressor.uncompress(urlBytes));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                Toast.makeText(this, "Monitoring started!", Toast.LENGTH_SHORT).show();
-                beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(new BeaconParser().EDDYSTONE_URL_LAYOUT));
-                Region region = new Region("bootstrapRegion", websight , null, null);
-                regionBootstrap = new RegionBootstrap(this, region);
-            }else Toast.makeText(this,"Beacon discovery disabled!",Toast.LENGTH_SHORT).show();
-            finish();
+        if (requestCode == LOCATION_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) startMonitoring();
+            else {
+                Toast.makeText(this, "Beacon discovery disabled!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
+    }
+
+    private void startMonitoring() {
+        beaconManager = BeaconManager.getInstanceForApplication(this);
+
+
+        // To detect proprietary beacons, you must add a line like below corresponding to your beacon
+        // type.  Do a web search for "setBeaconLayout" to get the proper expression.
+        // beaconManager.getBeaconParsers().add(new BeaconParser().
+        //        setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        // wake up the app when any beacon is seen (you can specify specific id filers in the parameters below)
+
+        try {
+            File file = new File(getFilesDir().getPath().toString() + "/website.txt");
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
+            String url = bfr.readLine();
+            byte[] urlBytes = UrlBeaconUrlCompressor.compress(url);
+            websight = Identifier.fromBytes(urlBytes, 0, urlBytes.length, false);
+            Log.d(TAG, "Uncompressed Beacon URL: " + UrlBeaconUrlCompressor.uncompress(urlBytes));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this, "Monitoring started!", Toast.LENGTH_SHORT).show();
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(new BeaconParser().EDDYSTONE_URL_LAYOUT));
+        Region region = new Region("bootstrapRegion", websight, null, null);
+        regionBootstrap = new RegionBootstrap(this, region);
+        finish();
     }
 
     @Override
     public void didDetermineStateForRegion(int arg0, Region arg1) {
         // Don't care
     }
+
     @Override
     public void didEnterRegion(Region arg0) {
         Log.d(TAG, "Got a didEnterRegion call");
