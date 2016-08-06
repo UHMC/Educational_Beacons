@@ -33,7 +33,6 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
     private RegionBootstrap regionBootstrap;
     private BeaconManager beaconManager;
     private Identifier websight;
-    private Beacon beacon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
