@@ -12,7 +12,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/btn_settings"
         android:id="@+id/button3"
         android:textAllCaps="true"
         android:onClick="setup"
@@ -23,7 +23,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="URL Webview"
+        android:text="@string/btn_url_webview"
         android:id="@+id/button5"
         android:onClick="monitor"
         android:layout_below="@+id/button6"
@@ -32,7 +32,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EID Authentication"
+        android:text="@string/btn_eid_auth"
         android:id="@+id/button6"
         android:onClick="launchEIDTestDemo"
         android:layout_centerVertical="true"
