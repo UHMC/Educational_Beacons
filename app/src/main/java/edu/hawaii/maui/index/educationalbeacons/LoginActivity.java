@@ -31,6 +31,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.Region;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +97,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Stop URL beacon monitoring from MonitoringActivity so EID will work.
+        try {
+            BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
+            beaconManager.stopMonitoringBeaconsInRegion(new Region("bootstrapRegion", null, null, null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateAutoComplete() {
