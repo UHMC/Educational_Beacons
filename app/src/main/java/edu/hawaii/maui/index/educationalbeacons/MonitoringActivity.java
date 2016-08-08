@@ -76,7 +76,7 @@ public class MonitoringActivity extends AppCompatActivity implements BootstrapNo
             e.printStackTrace();
         }
         Toast.makeText(this, "Monitoring started!", Toast.LENGTH_SHORT).show();
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(new BeaconParser().EDDYSTONE_URL_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
         Region region = new Region("bootstrapRegion", websight, null, null);
         regionBootstrap = new RegionBootstrap(this, region);
         finish();
