@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class EddystoneURL extends AppCompatActivity {
 
@@ -31,9 +33,13 @@ public class EddystoneURL extends AppCompatActivity {
         setContentView(R.layout.activity_eddystone_url);
 
         File file = new File(getFilesDir().getPath().toString() + "/website.txt");
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
+            WebView webSight = (WebView) findViewById(R.id.webview);
+            webSight.loadUrl(bfr.readLine());
+        } catch(Exception e){e.printStackTrace();}
 
-        WebView webSight = (WebView) findViewById(R.id.webview);
-        webSight.loadUrl("https://beaconcafeteria.wordpress.com");
     }
 
 
