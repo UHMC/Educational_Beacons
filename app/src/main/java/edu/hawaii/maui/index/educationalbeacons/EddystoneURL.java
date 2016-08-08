@@ -1,20 +1,14 @@
 package edu.hawaii.maui.index.educationalbeacons;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class EddystoneURL extends AppCompatActivity {
@@ -38,7 +32,9 @@ public class EddystoneURL extends AppCompatActivity {
             BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
             WebView webSight = (WebView) findViewById(R.id.webview);
             webSight.loadUrl(bfr.readLine());
-        } catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

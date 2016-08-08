@@ -1,15 +1,13 @@
 package edu.hawaii.maui.index.educationalbeacons;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
@@ -46,7 +44,7 @@ public class SetupActivity extends AppCompatActivity {
             // Delete the file first.
             file.delete();
             // Set up I/O and write the info from EditText into the file
-            fw = new FileWriter(file,true);
+            fw = new FileWriter(file, true);
             fw.write(website.getText().toString());
             fw.flush();
             fw.close();
@@ -57,12 +55,9 @@ public class SetupActivity extends AppCompatActivity {
             currentSite.setText("Current website: " + bfr.readLine());
 
 
-
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
     }

@@ -13,8 +13,8 @@ public class BootReceiver extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         //throw new UnsupportedOperationException("Not yet implemented");
-        if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
-            context.startActivity(new Intent(context,MonitoringActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            context.startActivity(new Intent(context, MonitoringActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

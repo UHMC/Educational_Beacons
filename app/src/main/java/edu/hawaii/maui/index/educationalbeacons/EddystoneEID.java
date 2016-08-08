@@ -7,7 +7,6 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
@@ -33,7 +32,6 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
     private String data;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +40,7 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
         Intent intent = getIntent();
         String userID = intent.getStringExtra(LoginActivity.UserLoginTask.EXTRA_MESSAGE);
         resolver = EidResolver.getInstanceWithGoogleApiKey(GOOGLE_API_KEY, RESOLUTION_NAMESPACED_TYPE + userID);
-        Log.d(TAG,userID);
+        Log.d(TAG, userID);
         mActivity = this;
 
     }
@@ -80,21 +78,22 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
             if (DEBUG) Log.d(TAG, "Another beacon");
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x30) {
                 Identifier ephemeralId = beacon.getId1();
-                if(resolver.getResolvedIdentifierString(ephemeralId) != null) {
-                    Log.d(TAG,getAttachmentInfo(ephemeralId));
+                if (resolver.getResolvedIdentifierString(ephemeralId) != null) {
+                    Log.d(TAG, getAttachmentInfo(ephemeralId));
                     updateUser(getAttachmentInfo(ephemeralId));
                 }
                 count++;
                 try {
                     Thread.sleep(1000);
-                } catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if(resolver.getResolvedIdentifierString(ephemeralId) == null && count == 10){
+                if (resolver.getResolvedIdentifierString(ephemeralId) == null && count == 10) {
                     updateUnauth();
 
                 }
-                if (DEBUG) Log.d(TAG, "I see a beacon transmitting ephemeral id: " + ephemeralId + " approximately " + beacon.getDistance() + " meters away.");
+                if (DEBUG)
+                    Log.d(TAG, "I see a beacon transmitting ephemeral id: " + ephemeralId + " approximately " + beacon.getDistance() + " meters away.");
             }
         }
     }
@@ -111,7 +110,7 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
             byte[] attachmentData = Base64.decode(resolver.getResolvedIdentifierString(ephemeralId), Base64.NO_WRAP);
             String decoded = new String(attachmentData, "UTF-8");
             data = decoded;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return data;
@@ -121,7 +120,7 @@ public class EddystoneEID extends AppCompatActivity implements BeaconConsumer, R
         mActivity.runOnUiThread(new Runnable() {
             public void run() {
                 TextView welcome = (TextView) findViewById(R.id.textView4);
-                welcome.setText("You've been authorized, "+name+"!");
+                welcome.setText("You've been authorized, " + name + "!");
             }
         });
     }

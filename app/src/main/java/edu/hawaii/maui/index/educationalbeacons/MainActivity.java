@@ -2,13 +2,10 @@ package edu.hawaii.maui.index.educationalbeacons;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import java.io.File;
-import java.io.FileWriter;
 
 public class MainActivity extends AppCompatActivity {
     private boolean DEBUG = false;
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void launchURL (View v){
+    public void launchURL(View v) {
         Intent activity = null;
         activity = new Intent(this, EddystoneURL.class);
         try {
@@ -52,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void launchEID (View v){
+    public void launchEID(View v) {
         Intent activity = null;
-        activity = new Intent(this,EddystoneEID.class);
+        activity = new Intent(this, EddystoneEID.class);
         try {
             startActivity(activity);
         } catch (Exception e) {
@@ -62,25 +59,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void launchEIDTestDemo(View v){startActivity(new Intent(this,LoginActivity.class));}
+    public void launchEIDTestDemo(View v) {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
 
     public void monitor(View v) {
         Intent activity = null;
-        activity = new Intent(this,MonitoringActivity.class);
+        activity = new Intent(this, MonitoringActivity.class);
         try {
             startActivity(activity);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void setup(View v){
+    public void setup(View v) {
         Intent activity = null;
-        activity = new Intent(this,SetupActivity.class);
+        activity = new Intent(this, SetupActivity.class);
         try {
             startActivity(activity);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
