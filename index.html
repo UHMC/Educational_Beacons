@@ -29,31 +29,23 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
-
-<p>In the ever increasing field of technology, new advancements are bound to occur. For the average person, contextual technology is becoming more and more impactful in their lives. Whether it's social media applications asking them to make a post in the event of a disaster so that their family knows they're okay or a simple post saying "I'm at the coffee shop!"</p>
-
-<h3>
 <a id="our-application" class="anchor" href="#our-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Our application</h3>
 
-<p>We have developed a solution that enables any university to reliably relay information to their students through an application. Once it detects a beacon, it will notify the user. The information will be a tap away.</p>
+<p>We are working on a solution that will enable any university to reliably relay information to their students through an application. Once it detects a beacon, it will notify the user -- contextually relevant information will be a tap away.</p>
 
-<p>The application can be configured with a school's website. Information on the website needs to be maintained in order for the app to stay relevant. This can be done through any web service. An example can be seen below:
+<p>The application can also be configured to work with a school's website; however, information on the website would need to be maintained in order for the app to stay relevant. This can be done through any web service. An example can be seen below:
 <img src="http://i.imgur.com/wvWnMGm.png" alt="A wordpress website"></p>
 
 <p>The application also takes advantage of Eddystone-EID for two-factor authentication. This requires the user to be near a beacon transmitting Ephemeral Identifiers and successfully resolve it in order to become authorized to access a location. </p>
-
-<p>Resolution occurs by sending the correct student ID, in our demonstration, we use three different IDs:
-Saxon - </p>
 
 <h3>
 <a id="proposed-features" class="anchor" href="#proposed-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Proposed features</h3>
 
 <ul>
 <li>Eddystone-URL support (insecure)</li>
-<li><p>Configurable; just declare what URL the application should look after</p></li>
+<li><p>Configurable; just declare what URL the application should look for</p></li>
 <li><p>Eddystone-EID support (secure)</p></li>
-<li>Using Eddystone-EID, information can be catered to students based on location, adding a second layer of defense where physical location is necessary. </li>
+<li>Using Eddystone-EID, information can be catered to students based on location as a second layer of security</li>
 </ul>
 
 <h3>
@@ -64,7 +56,7 @@ Saxon - </p>
 <img src="http://i.imgur.com/CWsdZxv.png" alt="Configuration page">
 <img src="http://i.imgur.com/KhJRrpu.png" alt="Notification bar">
 </li>
-<li>Eddystone-EID: Using available hardware by Accent beacons, we were able to successfully resolve Eddystone-EID packets. </li>
+<li>Eddystone-EID: Using available hardware by Accent beacons, we were able to successfully resolve Eddystone-EID packets and authenticate users.</li>
 </ul>
 
 <h3>
