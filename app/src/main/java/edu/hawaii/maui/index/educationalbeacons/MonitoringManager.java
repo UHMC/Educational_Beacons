@@ -3,6 +3,7 @@ package edu.hawaii.maui.index.educationalbeacons;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -37,8 +38,8 @@ public class MonitoringManager extends Application implements BootstrapNotifier 
         return mInstance;
     }
 
-    public void startMonitoring() {
-        beaconManager = BeaconManager.getInstanceForApplication(this);
+    public void startMonitoring(Context context) {
+        beaconManager = BeaconManager.getInstanceForApplication(context);
         // To detect proprietary beacons, you must add a line like below corresponding to your beacon
         // type.  Do a web search for "setBeaconLayout" to get the proper expression.
         // beaconManager.getBeaconParsers().add(new BeaconParser().

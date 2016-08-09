@@ -54,7 +54,7 @@ public class MonitoringActivity extends AppCompatActivity{
     }
 
     private void startMonitoring() {
-        mMonitoringManager.startMonitoring();
+        mMonitoringManager.startMonitoring(this);
         finish();
     }
 }
