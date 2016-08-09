@@ -17,4 +17,5 @@
     <string name="btn_eid_auth">EID Authentication</string>
     <string name="btn_url_webview">URL Webview</string>
     <string name="btn_settings">Settings</string>
+    <string name="EID_info">This demonstration shows how Eddystone-EID can be used for location-based two-factor authentication.\n\nThis application uses student identification numbers to check with Google\'s Proximity Beacon API and shows whether or not the user is found.\n\nThis shows that resources can be set to only be accessed when entering a certain location.\n\nSample student IDs linked to this project: \n\nSaxon: 12345678 \nMario: 87654321 \nAdministrator: 00000000</string>
 </resources>

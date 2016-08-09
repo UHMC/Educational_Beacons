@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        TextView text = (TextView) findViewById(R.id.textView);
+        text.setText(R.string.EID_info);
         setupActionBar();
         mContext = getApplicationContext();
         // Set up the login form.
