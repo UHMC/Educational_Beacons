@@ -21,6 +21,7 @@ import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Collection;
 
@@ -32,16 +33,27 @@ public class MonitoringActivity extends AppCompatActivity implements BeaconConsu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_monitoring);
+        File file = new File(getFilesDir().getPath().toString() + "/website.txt");
+        FileWriter fw;
         try {
-            File file = new File(getFilesDir().getPath().toString() + "/website.txt");
             FileInputStream fis = new FileInputStream(file);
             BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
             String url = bfr.readLine();
+            TextView text = (TextView)findViewById(R.id.textView2);
+            text.setText("Scanning for...\n\n" + url);
+            if(url == null){
+                fw = new FileWriter(file, true);
+                fw.write("http://uhmc.github.io/Educational_Beacons");
+                fw.flush();
+                fw.close();
+            }
             byte[] urlBytes = UrlBeaconUrlCompressor.compress(url);
             websight = Identifier.fromBytes(urlBytes, 0, urlBytes.length, false);
             Log.d(TAG, "Uncompressed Beacon URL: " + UrlBeaconUrlCompressor.uncompress(urlBytes));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+
         }
         Toast.makeText(this, "Monitoring started!", Toast.LENGTH_SHORT).show();
         beaconManager = BeaconManager.getInstanceForApplication(this);
@@ -68,7 +80,6 @@ public class MonitoringActivity extends AppCompatActivity implements BeaconConsu
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         Log.d(TAG,"Hits here.");
         for (Beacon beacon : beacons) {
-            Log.d(TAG,UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray())+" and " + websight.toString());
             if(beacon.getId1() == websight){
                 Intent intent = new Intent(this,EddystoneURL.class);
                 startActivity(intent);

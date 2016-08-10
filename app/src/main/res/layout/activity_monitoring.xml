@@ -15,5 +15,6 @@
         android:text="New Text"
         android:id="@+id/textView2"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"/>
 </RelativeLayout>
