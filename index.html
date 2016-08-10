@@ -31,12 +31,16 @@
           <h3>
 <a id="our-application" class="anchor" href="#our-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Our application</h3>
 
-<p>We are working on a solution that will enable any university to reliably relay information to their students through an application. Once it detects a beacon, it will notify the user -- contextually relevant information will be a tap away.</p>
+<p>Our application is a demonstration to show the two different scenarios where beacons are present. One scenario is that of an insecure setting. Eddystone-URL and Eddystone-UUID can be cloned and tracked and should be used in ways that affect the public. In our demonstration, we begin to look for a beacon stationed at a school's cafeteria. Because it's a public place, it doesn't matter if the beacon is cloned or tracked.</p>
 
 <p>The application can also be configured to work with a school's website; however, information on the website would need to be maintained in order for the app to stay relevant. This can be done through any web service. An example can be seen below:
 <img src="http://i.imgur.com/wvWnMGm.png" alt="A wordpress website"></p>
 
-<p>The application also takes advantage of Eddystone-EID for two-factor authentication. This requires the user to be near a beacon transmitting Ephemeral Identifiers and successfully resolve it in order to become authorized to access a location. </p>
+<p>The demonstration also shows how beacons would work in a secure setting. Eddystone-EID can be used for two-factor authentication. This requires the user to be near a beacon transmitting Ephemeral Identifiers and successfully resolve it in order to become authorized to access a location. </p>
+
+<p>This kind of location-based security would stop cyber attacks from outside of a location. For example, even if a hacker were to get my password for my account, Eddystone-EID can be implemented so that you need to be near a specific beacon in order to log in, which would be impossible for a hacker in another country.</p>
+
+<p><img src="http://i.imgur.com/S2szBUb.jpg" alt=""></p>
 
 <h3>
 <a id="proposed-features" class="anchor" href="#proposed-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Proposed features</h3>
@@ -45,18 +49,15 @@
 <li>Eddystone-URL support (insecure)</li>
 <li><p>Configurable; just declare what URL the application should look for</p></li>
 <li><p>Eddystone-EID support (secure)</p></li>
-<li>Using Eddystone-EID, information can be catered to students based on location as a second layer of security</li>
+<li>
 </ul>
 
 <h3>
 <a id="development-status" class="anchor" href="#development-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development status</h3>
 
 <ul>
-<li>Eddystone-URL: Application can be configured with a URL distributed by a beacon, which will notify the user that they are near it with a notification.
-<img src="http://i.imgur.com/CWsdZxv.png" alt="Configuration page">
-<img src="http://i.imgur.com/KhJRrpu.png" alt="Notification bar">
-</li>
-<li>Eddystone-EID: Using available hardware by Accent beacons, we were able to successfully resolve Eddystone-EID packets and authenticate users.</li>
+<li><p>Eddystone-URL: Application can be configured with a URL distributed by a beacon, when found, it will automatically go to the website.</p></li>
+<li><p>Eddystone-EID: Using available hardware by Accent beacons, we were able to successfully resolve Eddystone-EID packets and authenticate users.</p></li>
 </ul>
 
 <h3>
